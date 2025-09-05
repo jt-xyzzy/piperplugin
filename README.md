@@ -1,4 +1,4 @@
-# Piper Plugin
+# Piper Plugin (Alpha - do not use)
 The Piper Text to Speech Plugin.
 
 Convert text to speech in Obsidian. A fork of the [Listen Up!](https://github.com/tejas-hosamani/obsidian-plugin-text-to-speech) Plugin
