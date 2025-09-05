@@ -1,7 +1,7 @@
 {
 	"id": "piperplugin",
 	"name": "piperplugin",
-	"version": "0.0.1",
+	"version": "0.0.2",
 	"minAppVersion": "0.15.0",
 	"description": "Covert text to speech using piper. Based on Tejas H's 'Listen Up!' plugin",
 	"author": "JT",
