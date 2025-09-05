@@ -1,10 +1,11 @@
 {
 	"id": "piperplugin",
-	"name": "piperplugin",
+	"name": "Piper Plugin",
 	"version": "1.0.0",
 	"minAppVersion": "0.15.0",
-	"description": "Covert text to speech using piper. Based on Tejas H's 'Listen Up!' plugin",
+	"description": "Convert text to speech using piper.",
 	"author": "JT",
 	"authorUrl": "https://github.com/jt-xyzzy/piperplugin",
-	"isDesktopOnly": true
+	"fundingUrl": "",
+	"isDesktopOnly": false
 }
