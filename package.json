@@ -1,6 +1,6 @@
 {
 	"name": "piperplugin",
-	"version": "0.0.2",
+	"version": "1.0.0",
 	"description": "Text to Speech using piper",
 	"main": "main.js",
 	"scripts": {
