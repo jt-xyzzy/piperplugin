@@ -1,50 +1,21 @@
-# Listen Up!
-An open source plugin to convert your [notes into natural language audio files](https://github.com/tejas-hosamani/obsidian-plugin-text-to-speech)
+# Piper Plugin
+The Piper Text to Speech Plugin.
 
-Join [Listen Up discord server](https://discord.gg/DaGymVk3jx) if you get stuck somewhere or you have suggestions for features.
-
----
-
-Sample: <br > 
-
-<audio controls>
-  <source src="./sample/sample.wav" type="audio/wav">
-  Your browser does not support the audio tag. Try <a href="/sample/sample.wav">Sample audio</a>
-</audio>
-
-## Get Started - Quick
-
-Follow along video - *coming soon*
-
-Step 1:
-Download and enable the plugin
-
-Step 2:
-1. Download, and extract [Piper](https://github.com/rhasspy/piper/releases) for your OS 
-2. Select executable file from Obsidian plugin setting
-
-Step 3:
-Download and setup language audio models - 
-1. Check the samples - https://rhasspy.github.io/piper-samples
-2. Download whichever lang model you like from the samples from - https://github.com/rhasspy/piper/blob/master/VOICES.md
-   1. [Recommended model](https://github.com/rhasspy/piper/blob/master/VOICES.md#:~:text=%5D%20%5Bconfig%5D-,danny,-low%20%2D%20%5Bmodel)
-3. Select these files from the Obsidian plugin settings
-
-Step 3:
-Run the `Convert text to speech` command to convert
-![alt text](sample/image.png)
-That's it! Start using the plugin!
+Convert text to speech in Obsidian. A fork of the [Listen Up!](https://github.com/tejas-hosamani/obsidian-plugin-text-to-speech) Plugin
 
 
-## Advanced
+## Getting Started
 
-### Different ways to convert text to audio
-1. Selection
-2. Using special text blocks - `{{listen}}Converts to voice{{/listen}}`
-3. Without any selection or text blocks, covers entire file to audio
+## Installation and Set up
 
+0. Install this plugin if you haven't already.
 
+1. Install [PiperTTS](https://pypi.org/project/piper-tts/) in the folder that houses this plugin.
 
+2. Download a voice model from [huggingface](https://huggingface.co/rhasspy/piper-voices/tree/main). Not sure which to choose? Try the US English high quality version of [Lessac](https://huggingface.co/rhasspy/piper-voices/tree/main/en/en_US/lessac/high) or listen to the available [voice samples](https://rhasspy.github.io/piper-samples/).
 
-### Change language models
-*Coming soon*
+3. Find the file path for the PiperTTS executable, your voice, and your voices json file. Open the plugin settings and paste in the paths.
+
+## Using the Plugin
+
+Open your settings menu and choose the Piper plugin from the menu.
