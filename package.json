@@ -1,7 +1,7 @@
 {
-	"name": "obsidian-plugin-convert-text-to-natural-speech",
-	"version": "1.0.5",
-	"description": "To convert text to natural speech",
+	"name": "piperplugin",
+	"version": "0.0.1-alpha",
+	"description": "Text to Speech using piper",
 	"main": "main.js",
 	"scripts": {
 		"dev": "node esbuild.config.mjs",
