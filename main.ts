@@ -1,7 +1,7 @@
 import { normalizePath, Notice, Plugin } from "obsidian";
 import { exec } from "child_process";
 import { removeAllFormatting } from "utils/removeFormatting";
-import { getBasePath } from "utils/utils";
+// import { getBasePath } from "utils/utils";
 import { DEFAULT_SETTINGS, SettingsTab } from "Settings";
 
 export default class ListenUp extends Plugin {
@@ -13,11 +13,11 @@ export default class ListenUp extends Plugin {
 
 		this.addCommand({
 			id: "convert-text-to-speech",
-			name: "Convert text to speech",
+			name: "Read Aloud",
 			editorCallback: async (editor, _) => {
 				const notice = new Notice("💬", 0);
 
-				const basePath = getBasePath();
+				// const basePath = getBasePath();
 				// const currentFile = this.app.workspace.getActiveFile();
 				// const audioFileName =
 				// 	// @ts-ignore
@@ -29,11 +29,17 @@ export default class ListenUp extends Plugin {
 				const piperLocation = normalizePath(
 					this.settings.piperExecutableFilePath,
 				);
+				// let modelPath = normalizePath(
+				// 	basePath + "/" + DEFAULT_SETTINGS.customModelFilePath,
+				// );
+				// let modelConfigPath = normalizePath(
+				// 	basePath + "/" + DEFAULT_SETTINGS.customModelConfigFilePath,
+				// );
 				let modelPath = normalizePath(
-					basePath + "/" + DEFAULT_SETTINGS.customModelFilePath,
+					"/" + DEFAULT_SETTINGS.customModelFilePath,
 				);
 				let modelConfigPath = normalizePath(
-					basePath + "/" + DEFAULT_SETTINGS.customModelConfigFilePath,
+					"/" + DEFAULT_SETTINGS.customModelConfigFilePath,
 				);
 
 				// const outputFilePath = normalizePath(
