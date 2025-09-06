@@ -79,7 +79,7 @@ export default class ListenUp extends Plugin {
 					async (error) => {
 						if (error) {
 							console.error(`\n\nerror: ${error.message}`);
-							notice.setMessage("🚫");
+							notice.setMessage("🚫 ");
 							return;
 						}
 

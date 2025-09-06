@@ -19,3 +19,9 @@ Convert text to speech in Obsidian. A fork of the [Listen Up!](https://github.co
 ## Using the Plugin
 
 Open your settings menu and choose the Piper plugin from the menu.
+
+## Developer
+
+npm i -D esbuild-config glob-all
+
+node esbuild.config.mjs
