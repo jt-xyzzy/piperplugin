@@ -1,8 +1,4 @@
-import {
-	normalizePath,
-	Notice,
-	Plugin,
-} from "obsidian";
+import { normalizePath, Notice, Plugin } from "obsidian";
 import { exec } from "child_process";
 import { removeAllFormatting } from "utils/removeFormatting";
 import { getBasePath } from "utils/utils";
@@ -19,37 +15,46 @@ export default class ListenUp extends Plugin {
 			id: "convert-text-to-speech",
 			name: "Convert text to speech",
 			editorCallback: async (editor, _) => {
-				const notice = new Notice(
-					"Converting the text to natural speech, please wait..",
-					0
-				);
+				const notice = new Notice("💬", 0);
 
 				const basePath = getBasePath();
-				const currentFile = this.app.workspace.getActiveFile();
-				const audioFileName =
-					// @ts-ignore
-					currentFile?.name.replaceAll(" ", "-") +
-					"-" +
-					this.getRandomNumber() +
-					".wav";
+				// const currentFile = this.app.workspace.getActiveFile();
+				// const audioFileName =
+				// 	// @ts-ignore
+				// 	currentFile?.name.replaceAll(" ", "-") +
+				// 	"-" +
+				// 	this.getRandomNumber() +
+				// 	".wav";
 
-				const piperLocation = normalizePath(this.settings.piperExecutableFilePath);
-				let modelPath = normalizePath(basePath + '/' + DEFAULT_SETTINGS.customModelFilePath);
-				let modelConfigPath =
-					normalizePath(basePath + '/' + DEFAULT_SETTINGS.customModelConfigFilePath);
+				const piperLocation = normalizePath(
+					this.settings.piperExecutableFilePath,
+				);
+				let modelPath = normalizePath(
+					basePath + "/" + DEFAULT_SETTINGS.customModelFilePath,
+				);
+				let modelConfigPath = normalizePath(
+					basePath + "/" + DEFAULT_SETTINGS.customModelConfigFilePath,
+				);
 
-				const outputFilePath = normalizePath(basePath + '/' + audioFileName)
+				// const outputFilePath = normalizePath(
+				// 	basePath + "/" + audioFileName,
+				// );
 
-				// if (this.settings.shouldUseCustomModel) {
-					modelPath = normalizePath(this.settings.customModelFilePath);
-					modelConfigPath = normalizePath(this.settings.customModelConfigFilePath);
-				// }
+				if (this.settings.shouldUseCustomModel) {
+					modelPath = normalizePath(
+						this.settings.customModelFilePath,
+					);
+					modelConfigPath = normalizePath(
+						this.settings.customModelConfigFilePath,
+					);
+				}
+				const piperCommand = `"${piperLocation}" --model "${modelPath}" --config "${modelConfigPath}" --output-raw --sentence_silence 0.5 --length_scale 1 | aplay -r 22000 -f S16_LE -t raw -`;
 
-				const piperCommand = `"${piperLocation}" --model "${modelPath}" --config "${modelConfigPath}" --output_file "${outputFilePath}" --sentence_silence 0.5 --length_scale 1`;
+				// const piperCommand = `"${piperLocation}" --model "${modelPath}" --config "${modelConfigPath}" --output_file "${outputFilePath}" --sentence_silence 0.5 --length_scale 1`;
 
 				let textToConvertToAudio = editor.getValue();
 				const regExMatch = textToConvertToAudio.match(
-					/{{listen}}([\s\S]*?){{\/listen}}/g
+					/{{listen}}([\s\S]*?){{\/listen}}/g,
 				);
 
 				const userSelection = editor.getSelection();
@@ -65,7 +70,7 @@ export default class ListenUp extends Plugin {
 
 				textToConvertToAudio = removeAllFormatting(
 					textToConvertToAudio ?? " ",
-					{}
+					{},
 					// @ts-ignore
 				).replaceAll('"', '\\"');
 
@@ -74,33 +79,32 @@ export default class ListenUp extends Plugin {
 					async (error) => {
 						if (error) {
 							console.error(`\n\nerror: ${error.message}`);
-							notice.setMessage("Something went wrong. Please raise an issue on Github or Discord")
+							notice.setMessage("🚫");
 							return;
 						}
 
-						await currentFile?.vault.append(
-							currentFile,
-							`![[${audioFileName}]] \n\n`
-						);
+						// await currentFile?.vault.append(
+						// 	currentFile,
+						// 	`![[${audioFileName}]] \n\n`,
+						// );
 
 						setTimeout(() => {
 							editor.setCursor(editor.lastLine());
 							notice.hide();
 						}, 200);
-					}
+					},
 				);
 			},
 		});
-
 	}
 
 	async onunload() {
-	// Release any resources configured by the plugin.
+		// Release any resources configured by the plugin.
 	}
 
-	getRandomNumber(min: number = 10000, max: number = 99999) {
-		return Math.floor(Math.random() * (max - min) + min);
-	}
+	// getRandomNumber(min:10000, max: 99999) {
+	// 	return Math.floor(Math.random() * (max - min) + min);
+	// }
 
 	async loadSettings() {
 		const data = (await this.loadData()) || {};
