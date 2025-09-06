@@ -36,10 +36,10 @@ export default class ListenUp extends Plugin {
 				// 	basePath + "/" + DEFAULT_SETTINGS.customModelConfigFilePath,
 				// );
 				let modelPath = normalizePath(
-					"/" + DEFAULT_SETTINGS.customModelFilePath,
+					DEFAULT_SETTINGS.customModelFilePath,
 				);
 				let modelConfigPath = normalizePath(
-					"/" + DEFAULT_SETTINGS.customModelConfigFilePath,
+					DEFAULT_SETTINGS.customModelConfigFilePath,
 				);
 
 				// const outputFilePath = normalizePath(
@@ -54,7 +54,7 @@ export default class ListenUp extends Plugin {
 						this.settings.customModelConfigFilePath,
 					);
 				}
-				const piperCommand = `"${piperLocation}" --model "${modelPath}" --config "${modelConfigPath}" --output-raw --sentence_silence 0.5 --length_scale 1 | aplay -r 22000 -f S16_LE -t raw -`;
+				const piperCommand = `"${piperLocation}" --model "${modelPath}" --config "${modelConfigPath}" --output-raw | aplay -r 22000 -f S16_LE -t raw -`;
 
 				// const piperCommand = `"${piperLocation}" --model "${modelPath}" --config "${modelConfigPath}" --output_file "${outputFilePath}" --sentence_silence 0.5 --length_scale 1`;
 
