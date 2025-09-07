@@ -1,4 +1,4 @@
-import { normalizePath, Notice, Plugin } from "obsidian";
+import { Notice, Plugin } from "obsidian";
 import { exec } from "child_process";
 import { removeAllFormatting } from "utils/removeFormatting";
 import { DEFAULT_SETTINGS, SettingsTab } from "Settings";
@@ -16,37 +16,11 @@ export default class ListenUp extends Plugin {
 			editorCallback: async (editor, _) => {
 				const notice = new Notice("💬", 0);
 
-				// const piperLocation = normalizePath(
-				// 	this.settings.piperExecutableFilePath,
-				// );
+				const SERVICE_SETTING = this.settings.SERVICE;
 
-				const piperLocation = "piper-tts";
-				// let modelPath = normalizePath(
-				// 	basePath + "/" + DEFAULT_SETTINGS.customModelFilePath,
-				// );
+				const VOICE_SETTING = this.settings.VOICE_MODEL;
 
-				const modelPath = normalizePath(
-					DEFAULT_SETTINGS.customModelFilePath,
-				);
-
-				const modelPath = normalizePath(
-					DEFAULT_SETTINGS.customModelFilePath,
-				);
-
-				// let modelPath =
-				// 	"/usr/share/piper-voices/en/en_GB/cori/high/en_GB-cori-high.onnx";
-				// if (this.settings.shouldUseCustomModel) {
-				// 	modelPath = normalizePath(
-				// 		this.settings.customModelFilePath,
-				// 	);
-				// }
-
-				// const piperCommand = `"${piperLocation}" --model "${modelPath}" --config "${modelConfigPath}" --output_file "${outputFilePath}" --sentence_silence 0.5 --length_scale 1`;
-				//
-				//
-				const piperCommand = `piper-tts --model "${modelPath}" -s 4 --output-raw | aplay -r 22000 -f S16_LE -t raw -`;
-				notice.setMessage(`"${piperLocation}"`);
-				// const piperCommand = `piper-tts --model "/usr/share/piper-voices/en/en_GB/cori/high/en_GB-cori-high.onnx" -s 4 --output-raw | aplay -r 22000 -f S16_LE -t raw -`;
+				const piperCommand = `${SERVICE_SETTING} --model "${VOICE_SETTING}" -s 4 --output-raw | aplay -r 22000 -f S16_LE -t raw -`;
 
 				let textToConvertToAudio = editor.getValue();
 				const regExMatch = textToConvertToAudio.match(
@@ -60,9 +34,11 @@ export default class ListenUp extends Plugin {
 						.join(", ")
 						// @ts-ignore
 						.replaceAll(/{{listen}}|{{\/listen}}/g, "");
+					notice.setMessage("💬💬");
 				} else if (userSelection.length) {
 					textToConvertToAudio = userSelection;
 				}
+				notice.setMessage("💬💬💬");
 
 				textToConvertToAudio = removeAllFormatting(
 					textToConvertToAudio ?? " ",
@@ -79,10 +55,10 @@ export default class ListenUp extends Plugin {
 							return;
 						}
 
-						// setTimeout(() => {
-						// 	editor.setCursor(editor.lastLine());
-						// 	notice.hide();
-						// }, 200);
+						setTimeout(() => {
+							editor.setCursor(editor.lastLine());
+							notice.hide();
+						}, 200);
 					},
 				);
 			},

@@ -2,14 +2,14 @@ import ListenUp from "main";
 import { App, PluginSettingTab, Setting } from "obsidian";
 
 export interface ListenUpSettingsTab {
-	customModelFilePath: string;
-	piperExecutableFilePath: string;
+	VOICE_MODEL: string;
+	SERVICE: string;
 	shouldUseCustomModel: boolean;
 }
 
 export const DEFAULT_SETTINGS: ListenUpSettingsTab = {
-	customModelFilePath: "piper-tts",
-	piperExecutableFilePath: "",
+	VOICE_MODEL: "",
+	SERVICE: "",
 	shouldUseCustomModel: true,
 };
 
@@ -21,24 +21,21 @@ export class SettingsTab extends PluginSettingTab {
 		this.plugin = plugin;
 	}
 
-	display() {
+	display() 
+	{
 		const { containerEl } = this;
 		containerEl.empty();
-
 		this.addSettingToSelectPiperExecutablePath(containerEl);
-		// this.addSettingsToChooseWhetherToUseCustomModelOrDefault(containerEl);
-		if (this.plugin.settings.shouldUseCustomModel) {
-			this.addSettingToSelectModelFilePath(containerEl);
-		}
+		this.addSettingToSelectModelFilePath(containerEl);
 	}
 
 	addSettingToSelectModelFilePath(containerEl: HTMLElement) {
 		new Setting(containerEl)
-			.setName("Select custom model file")
-			.setDesc(`File that ends with .onnx`)
+			.setName("Select Voice Model")
+			.setDesc(`Select the ONNX file for your preferred voice model.`)
 			.addText((component) => {
 				component.setDisabled(true);
-				component.setValue(this.plugin.settings.customModelFilePath);
+				component.setValue(this.plugin.settings.VOICE_MODEL);
 			})
 			.addExtraButton((component) => {
 				component.setIcon("folder-open");
@@ -54,7 +51,7 @@ export class SettingsTab extends PluginSettingTab {
 						.then((result: any) => {
 							if (result.canceled) return;
 
-							this.plugin.settings.customModelFilePath =
+							this.plugin.settings.VOICE_MODEL =
 								result.filePaths[0];
 							this.plugin.saveSettings();
 							this.display();
@@ -63,54 +60,22 @@ export class SettingsTab extends PluginSettingTab {
 			});
 	}
 
-	// addSettingToSelectModelConfigFilePath(containerEl: HTMLElement) {
+
+	// addSettingsToChooseWhetherToUseCustomModelOrDefault(
+	// 	containerEl: HTMLElement,
+	// ) {
 	// 	new Setting(containerEl)
-	// 		.setName("Select model config file")
-	// 		.setDesc(`File that ends with .json`)
-	// 		.addText((component) => {
-	// 			component.setDisabled(true);
-	// 			component.setValue(
-	// 				this.plugin.settings.customModelConfigFilePath,
-	// 			);
-	// 		})
-	// 		.addExtraButton((component) => {
-	// 			component.setIcon("folder-open");
-	// 			component.setTooltip("Select model config");
-
-	// 			component.onClick(() => {
-	// 				// @ts-ignore
-	// 				electron.remote.dialog
-	// 					.showOpenDialog({
-	// 						properties: ["openFile"],
-	// 						title: "Select a model config",
-	// 					})
-	// 					.then((result: any) => {
-	// 						if (result.canceled) return;
-
-	// 						this.plugin.settings.customModelConfigFilePath =
-	// 							result.filePaths[0];
-	// 						this.plugin.saveSettings();
-	// 						this.display();
-	// 					});
+	// 		.setName("Use custom model?")
+	// 		.setDesc(`This doesn't do anything.`)
+	// 		.addToggle((component) => {
+	// 			component.setValue(this.plugin.settings.shouldUseCustomModel);
+	// 			component.onChange((value) => {
+	// 				this.plugin.settings.shouldUseCustomModel = value;
+	// 				this.plugin.saveSettings();
+	// 				this.display();
 	// 			});
 	// 		});
 	// }
-
-	addSettingsToChooseWhetherToUseCustomModelOrDefault(
-		containerEl: HTMLElement,
-	) {
-		new Setting(containerEl)
-			.setName("Use custom model?")
-			.setDesc(`This doesn't do anything.`)
-			.addToggle((component) => {
-				component.setValue(this.plugin.settings.shouldUseCustomModel);
-				component.onChange((value) => {
-					this.plugin.settings.shouldUseCustomModel = value;
-					this.plugin.saveSettings();
-					this.display();
-				});
-			});
-	}
 
 	addSettingToSelectPiperExecutablePath(containerEl: HTMLElement) {
 		new Setting(containerEl)
@@ -119,7 +84,7 @@ export class SettingsTab extends PluginSettingTab {
 			.addText((component) => {
 				component.setDisabled(true);
 				component.setValue(
-					this.plugin.settings.piperExecutableFilePath,
+					this.plugin.settings.SERVICE,
 				);
 			})
 			.addExtraButton((component) => {
@@ -135,7 +100,7 @@ export class SettingsTab extends PluginSettingTab {
 						.then((result: any) => {
 							if (result.canceled) return;
 
-							this.plugin.settings.piperExecutableFilePath =
+							this.plugin.settings.SERVICE =
 								result.filePaths[0];
 							this.plugin.saveSettings();
 							this.display();
