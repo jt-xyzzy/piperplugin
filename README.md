@@ -1,7 +1,5 @@
 # Piper Plugin (Beta)
-The Piper Text to Speech Plugin for Obsidian.
-
-Convert text to speech in Obsidian. Based on Tejas Hosamani's [Listen Up!](https://github.com/tejas-hosamani/obsidian-plugin-text-to-speech) Plugin
+The Piper Text to Speech Plugin for Obsidian. Based on Tejas Hosamani's [Listen Up!](https://github.com/tejas-hosamani/obsidian-plugin-text-to-speech) Plugin
 
 
 ## Getting Started
