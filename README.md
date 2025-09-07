@@ -6,7 +6,7 @@ Convert text to speech in Obsidian. Based on Tejas Hosamani's [Listen Up!](https
 
 ## Getting Started
 
-1. Install this beta plugin in obsidian using the [Beta Reviewer's Auto-update Tool for Obsidian](https://github.com/TfTHacker/obsidian42-brat) (BRAT).
+1. Install this beta plugin in ObsidianMD using the [Beta Reviewer's Auto-update Tool for Obsidian](https://github.com/TfTHacker/obsidian42-brat) (BRAT).
 
 2. Install [PiperTTS](https://pypi.org/project/piper-tts/).
 
