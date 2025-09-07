@@ -14,7 +14,7 @@ Convert text to speech in Obsidian. Based on Tejas Hosamani's [Listen Up!](https
 
 2. Download a voice model from [huggingface](https://huggingface.co/rhasspy/piper-voices/tree/main). Not sure which to choose? Try the US English high quality version of [Lessac](https://huggingface.co/rhasspy/piper-voices/tree/main/en/en_US/lessac/high) or listen to the available [voice samples](https://rhasspy.github.io/piper-samples/).
 
-3. Find the file path for the PiperTTS executable, your voice, and your voices json file. Open the plugin settings and paste in the paths.
+3. Find the file path for the PiperTTS executable and voice model. Open the plugin settings and paste in the paths.
 
 ## Using the Plugin
 
