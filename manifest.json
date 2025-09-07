@@ -3,7 +3,7 @@
 	"name": "A Piper Plugin",
 	"version": "1.0.0",
 	"minAppVersion": "1.7.2",
-	"description": "Convert text to speech using piper.",
+	"description": "Text to Speech using the PiperTTS.",
 	"author": "JT",
 	"authorUrl": "https://github.com/jt-xyzzy/piperplugin",
 	"fundingUrl": "",

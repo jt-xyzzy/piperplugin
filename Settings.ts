@@ -1,22 +1,22 @@
-import ListenUp from "main";
+import ReadAloud from "main";
 import { App, PluginSettingTab, Setting } from "obsidian";
 
-export interface ListenUpSettingsTab {
+export interface ReadAloudSettingsTab {
 	VOICE_MODEL: string;
 	SERVICE: string;
 	shouldUseCustomModel: boolean;
 }
 
-export const DEFAULT_SETTINGS: ListenUpSettingsTab = {
+export const DEFAULT_SETTINGS: ReadAloudSettingsTab = {
 	VOICE_MODEL: "",
 	SERVICE: "",
 	shouldUseCustomModel: true,
 };
 
 export class SettingsTab extends PluginSettingTab {
-	plugin: ListenUp;
+	plugin: ReadAloud;
 
-	constructor(app: App, plugin: ListenUp) {
+	constructor(app: App, plugin: ReadAloud) {
 		super(app, plugin);
 		this.plugin = plugin;
 	}
@@ -25,62 +25,16 @@ export class SettingsTab extends PluginSettingTab {
 	{
 		const { containerEl } = this;
 		containerEl.empty();
-		this.addSettingToSelectPiperExecutablePath(containerEl);
-		this.addSettingToSelectModelFilePath(containerEl);
-	}
-
-	addSettingToSelectModelFilePath(containerEl: HTMLElement) {
-		new Setting(containerEl)
-			.setName("Select Voice Model")
-			.setDesc(`Select the ONNX file for your preferred voice model.`)
-			.addText((component) => {
-				component.setDisabled(true);
-				component.setValue(this.plugin.settings.VOICE_MODEL);
-			})
-			.addExtraButton((component) => {
-				component.setIcon("folder-open");
-				component.setTooltip("Select model");
-
-				component.onClick(() => {
-					// @ts-ignore
-					electron.remote.dialog
-						.showOpenDialog({
-							properties: ["openFile"],
-							title: "Select a model",
-						})
-						.then((result: any) => {
-							if (result.canceled) return;
-
-							this.plugin.settings.VOICE_MODEL =
-								result.filePaths[0];
-							this.plugin.saveSettings();
-							this.display();
-						});
-				});
-			});
+		this.SELECT_SERVICE(containerEl);
+		this.SELECT_MODEL(containerEl);
 	}
 
 
-	// addSettingsToChooseWhetherToUseCustomModelOrDefault(
-	// 	containerEl: HTMLElement,
-	// ) {
-	// 	new Setting(containerEl)
-	// 		.setName("Use custom model?")
-	// 		.setDesc(`This doesn't do anything.`)
-	// 		.addToggle((component) => {
-	// 			component.setValue(this.plugin.settings.shouldUseCustomModel);
-	// 			component.onChange((value) => {
-	// 				this.plugin.settings.shouldUseCustomModel = value;
-	// 				this.plugin.saveSettings();
-	// 				this.display();
-	// 			});
-	// 		});
-	// }
 
-	addSettingToSelectPiperExecutablePath(containerEl: HTMLElement) {
+	SELECT_SERVICE(containerEl: HTMLElement) {
 		new Setting(containerEl)
-			.setName("Select Piper executable file")
-			.setDesc(`This is required`)
+			.setName("Select Service")
+			.setDesc(`Set piper-tts file path.`)
 			.addText((component) => {
 				component.setDisabled(true);
 				component.setValue(
@@ -101,6 +55,36 @@ export class SettingsTab extends PluginSettingTab {
 							if (result.canceled) return;
 
 							this.plugin.settings.SERVICE =
+								result.filePaths[0];
+							this.plugin.saveSettings();
+							this.display();
+						});
+				});
+			});
+	}
+	SELECT_MODEL(containerEl: HTMLElement) {
+		new Setting(containerEl)
+			.setName("Select Voice Model")
+			.setDesc(`Select the ONNX file path of your preferred voice model.`)
+			.addText((component) => {
+				component.setDisabled(true);
+				component.setValue(this.plugin.settings.VOICE_MODEL);
+			})
+			.addExtraButton((component) => {
+				component.setIcon("folder-open");
+				component.setTooltip("Select model");
+
+				component.onClick(() => {
+					// @ts-ignore
+					electron.remote.dialog
+						.showOpenDialog({
+							properties: ["openFile"],
+							title: "Select a model",
+						})
+						.then((result: any) => {
+							if (result.canceled) return;
+
+							this.plugin.settings.VOICE_MODEL =
 								result.filePaths[0];
 							this.plugin.saveSettings();
 							this.display();

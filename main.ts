@@ -3,7 +3,7 @@ import { exec } from "child_process";
 import { removeAllFormatting } from "utils/removeFormatting";
 import { DEFAULT_SETTINGS, SettingsTab } from "Settings";
 
-export default class ListenUp extends Plugin {
+export default class ReadAloud extends Plugin {
 	settings: any;
 
 	async onload() {
