@@ -20,6 +20,11 @@ Convert text to speech in Obsidian. A fork of the [Listen Up!](https://github.co
 
 Open your settings menu and choose the Piper plugin from the menu.
 
+💬 means it is working.
+
+🚫 means it has failed.
+
+
 ## Developer
 
 npm i -D esbuild-config glob-all

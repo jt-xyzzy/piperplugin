@@ -1,7 +1,6 @@
 import { normalizePath, Notice, Plugin } from "obsidian";
 import { exec } from "child_process";
 import { removeAllFormatting } from "utils/removeFormatting";
-// import { getBasePath } from "utils/utils";
 import { DEFAULT_SETTINGS, SettingsTab } from "Settings";
 
 export default class ListenUp extends Plugin {
@@ -13,50 +12,41 @@ export default class ListenUp extends Plugin {
 
 		this.addCommand({
 			id: "convert-text-to-speech",
-			name: "Read Aloud",
+			name: "Convert text to speech",
 			editorCallback: async (editor, _) => {
 				const notice = new Notice("💬", 0);
 
-				// const basePath = getBasePath();
-				// const currentFile = this.app.workspace.getActiveFile();
-				// const audioFileName =
-				// 	// @ts-ignore
-				// 	currentFile?.name.replaceAll(" ", "-") +
-				// 	"-" +
-				// 	this.getRandomNumber() +
-				// 	".wav";
+				// const piperLocation = normalizePath(
+				// 	this.settings.piperExecutableFilePath,
+				// );
 
-				const piperLocation = normalizePath(
-					this.settings.piperExecutableFilePath,
-				);
+				const piperLocation = "piper-tts";
 				// let modelPath = normalizePath(
 				// 	basePath + "/" + DEFAULT_SETTINGS.customModelFilePath,
 				// );
-				// let modelConfigPath = normalizePath(
-				// 	basePath + "/" + DEFAULT_SETTINGS.customModelConfigFilePath,
-				// );
-				let modelPath = normalizePath(
+
+				const modelPath = normalizePath(
 					DEFAULT_SETTINGS.customModelFilePath,
 				);
-				let modelConfigPath = normalizePath(
-					DEFAULT_SETTINGS.customModelConfigFilePath,
+
+				const modelPath = normalizePath(
+					DEFAULT_SETTINGS.customModelFilePath,
 				);
 
-				// const outputFilePath = normalizePath(
-				// 	basePath + "/" + audioFileName,
-				// );
-
-				if (this.settings.shouldUseCustomModel) {
-					modelPath = normalizePath(
-						this.settings.customModelFilePath,
-					);
-					modelConfigPath = normalizePath(
-						this.settings.customModelConfigFilePath,
-					);
-				}
-				const piperCommand = `"${piperLocation}" --model "${modelPath}" --config "${modelConfigPath}" --output-raw | aplay -r 22000 -f S16_LE -t raw -`;
+				// let modelPath =
+				// 	"/usr/share/piper-voices/en/en_GB/cori/high/en_GB-cori-high.onnx";
+				// if (this.settings.shouldUseCustomModel) {
+				// 	modelPath = normalizePath(
+				// 		this.settings.customModelFilePath,
+				// 	);
+				// }
 
 				// const piperCommand = `"${piperLocation}" --model "${modelPath}" --config "${modelConfigPath}" --output_file "${outputFilePath}" --sentence_silence 0.5 --length_scale 1`;
+				//
+				//
+				const piperCommand = `piper-tts --model "${modelPath}" -s 4 --output-raw | aplay -r 22000 -f S16_LE -t raw -`;
+				notice.setMessage(`"${piperLocation}"`);
+				// const piperCommand = `piper-tts --model "/usr/share/piper-voices/en/en_GB/cori/high/en_GB-cori-high.onnx" -s 4 --output-raw | aplay -r 22000 -f S16_LE -t raw -`;
 
 				let textToConvertToAudio = editor.getValue();
 				const regExMatch = textToConvertToAudio.match(
@@ -85,19 +75,14 @@ export default class ListenUp extends Plugin {
 					async (error) => {
 						if (error) {
 							console.error(`\n\nerror: ${error.message}`);
-							notice.setMessage("🚫 ");
+							notice.setMessage("🚫");
 							return;
 						}
 
-						// await currentFile?.vault.append(
-						// 	currentFile,
-						// 	`![[${audioFileName}]] \n\n`,
-						// );
-
-						setTimeout(() => {
-							editor.setCursor(editor.lastLine());
-							notice.hide();
-						}, 200);
+						// setTimeout(() => {
+						// 	editor.setCursor(editor.lastLine());
+						// 	notice.hide();
+						// }, 200);
 					},
 				);
 			},
@@ -108,7 +93,7 @@ export default class ListenUp extends Plugin {
 		// Release any resources configured by the plugin.
 	}
 
-	// getRandomNumber(min:10000, max: 99999) {
+	// getRandomNumber(min: number = 10000, max: number = 99999) {
 	// 	return Math.floor(Math.random() * (max - min) + min);
 	// }
 
