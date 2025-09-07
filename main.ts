@@ -12,7 +12,7 @@ export default class ListenUp extends Plugin {
 
 		this.addCommand({
 			id: "convert-text-to-speech",
-			name: "Convert text to speech",
+			name: "Read Aloud",
 			editorCallback: async (editor, _) => {
 				const notice = new Notice("💬", 0);
 
@@ -38,7 +38,6 @@ export default class ListenUp extends Plugin {
 				} else if (userSelection.length) {
 					textToConvertToAudio = userSelection;
 				}
-				notice.setMessage("💬💬💬");
 
 				textToConvertToAudio = removeAllFormatting(
 					textToConvertToAudio ?? " ",
@@ -64,23 +63,15 @@ export default class ListenUp extends Plugin {
 			},
 		});
 	}
-
-	async onunload() {
-		// Release any resources configured by the plugin.
-	}
-
-	// getRandomNumber(min: number = 10000, max: number = 99999) {
-	// 	return Math.floor(Math.random() * (max - min) + min);
-	// }
+	// Release resources held by the plugin.
+	async onunload() {}
 
 	async loadSettings() {
 		const data = (await this.loadData()) || {};
 		this.settings = Object.assign({}, DEFAULT_SETTINGS, data);
 	}
 
-	/**
-	 * Save data to disk, stored in data.json in plugin folder
-	 */
+	// Save data to data.json
 	async saveSettings() {
 		await this.saveData(this.settings);
 	}
